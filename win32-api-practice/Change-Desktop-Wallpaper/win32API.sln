@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get-Processes-List", "..\Ge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAudio-Package", "..\NAudio-Package\NAudio-Package.csproj", "{ACBA5C17-3A3F-4D84-B6C0-BC9579A44DD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifiNetworks", "..\WifiNetworks\WifiNetworks.csproj", "{D7A26856-26A5-4490-85F5-874E65D27FCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{ACBA5C17-3A3F-4D84-B6C0-BC9579A44DD9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ACBA5C17-3A3F-4D84-B6C0-BC9579A44DD9}.Release|x64.ActiveCfg = Release|Any CPU
 		{ACBA5C17-3A3F-4D84-B6C0-BC9579A44DD9}.Release|x64.Build.0 = Release|Any CPU
+		{D7A26856-26A5-4490-85F5-874E65D27FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7A26856-26A5-4490-85F5-874E65D27FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7A26856-26A5-4490-85F5-874E65D27FCB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D7A26856-26A5-4490-85F5-874E65D27FCB}.Debug|x64.Build.0 = Debug|Any CPU
+		{D7A26856-26A5-4490-85F5-874E65D27FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7A26856-26A5-4490-85F5-874E65D27FCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7A26856-26A5-4490-85F5-874E65D27FCB}.Release|x64.ActiveCfg = Release|Any CPU
+		{D7A26856-26A5-4490-85F5-874E65D27FCB}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
