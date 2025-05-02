@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Change-Desktop-Wallpaper", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get-Screen-Resolution", "..\Get-Screen-Resolution\Get-Screen-Resolution.csproj", "{182532FA-1B3C-4C87-8B93-9FB33E3A83B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get-Battery-Info", "..\Get-Battery-Info\Get-Battery-Info.csproj", "{7AD21992-4A4B-4359-949B-A13387DC3D2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{182532FA-1B3C-4C87-8B93-9FB33E3A83B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{182532FA-1B3C-4C87-8B93-9FB33E3A83B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{182532FA-1B3C-4C87-8B93-9FB33E3A83B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD21992-4A4B-4359-949B-A13387DC3D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD21992-4A4B-4359-949B-A13387DC3D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD21992-4A4B-4359-949B-A13387DC3D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD21992-4A4B-4359-949B-A13387DC3D2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
