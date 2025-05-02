@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get-Screen-Resolution", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get-Battery-Info", "..\Get-Battery-Info\Get-Battery-Info.csproj", "{7AD21992-4A4B-4359-949B-A13387DC3D2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBox", "..\MessageBox\MessageBox.csproj", "{63B95007-D44D-4EC7-BB1D-1E00B7C3923C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7AD21992-4A4B-4359-949B-A13387DC3D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AD21992-4A4B-4359-949B-A13387DC3D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AD21992-4A4B-4359-949B-A13387DC3D2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63B95007-D44D-4EC7-BB1D-1E00B7C3923C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B95007-D44D-4EC7-BB1D-1E00B7C3923C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63B95007-D44D-4EC7-BB1D-1E00B7C3923C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B95007-D44D-4EC7-BB1D-1E00B7C3923C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
