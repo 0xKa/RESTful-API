@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35913.81 d17.13
+VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Change-Desktop-Wallpaper", "Change-Desktop-Wallpaper.csproj", "{1A176D8B-900B-4CE7-9759-F868929CEAEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get-Screen-Resolution", "..\Get-Screen-Resolution\Get-Screen-Resolution.csproj", "{182532FA-1B3C-4C87-8B93-9FB33E3A83B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1A176D8B-900B-4CE7-9759-F868929CEAEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A176D8B-900B-4CE7-9759-F868929CEAEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A176D8B-900B-4CE7-9759-F868929CEAEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{182532FA-1B3C-4C87-8B93-9FB33E3A83B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{182532FA-1B3C-4C87-8B93-9FB33E3A83B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{182532FA-1B3C-4C87-8B93-9FB33E3A83B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{182532FA-1B3C-4C87-8B93-9FB33E3A83B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,7 +28,8 @@ internal class Program
             @"C:\Users\DELL\Pictures\Wallpapers\Black-Aesthetic-bg.jpg",
         };
 
-        SetWallpaper(wallpapers[1]);
+        SetWallpaper(wallpapers[0]);
+        //SetWallpaper(wallpapers[1]);
 
         //Cycle Wallpapers Every Few Seconds
         /*while (true)
