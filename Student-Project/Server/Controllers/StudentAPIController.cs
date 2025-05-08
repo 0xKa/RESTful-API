@@ -111,6 +111,31 @@ namespace Student_API_Project.Controllers
             return Ok($"Student with ID = {ID} Removed.");
         }
 
+        [HttpPut("Update/{ID}", Name = "UpdateStudent")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Student> UpdateStudent(int id, Student updatedStudent)
+        {
+            if (id < 1 || updatedStudent == null)
+            {
+                return BadRequest("Invalid student data.");
+            }
+
+            var student = Database.Students.FirstOrDefault(s => s.ID == id);
+            if (student == null)
+            {
+                return NotFound($"Student with ID {id} not found.");
+            }
+
+            student.Name = updatedStudent.Name;
+            student.BirthDate = updatedStudent.BirthDate;
+            student.Grade = updatedStudent.Grade;
+
+            return Ok(student);
+        }
+
+
 
     }
 }

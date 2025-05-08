@@ -24,8 +24,10 @@ class Programm
 
         //await AddStudent(new Student { Name = "Issa", BirthDate = new DateTime(2000, 3, 3), Grade = 44 });
 
+        //await DeleteStudent(3);
 
-        await DeleteStudent(3);
+        await UpdateStudent(2, new Student { Name = "Saleh", BirthDate = new DateTime(2006, 6, 29), Grade = 84 });
+
     }
 
     static async Task GetAllStudents()
@@ -216,6 +218,32 @@ class Programm
 
     }
 
+    static async Task UpdateStudent(int ID, Student updatedStudent)
+    {
+        Console.WriteLine($"\nUpdating student with ID {ID}...\n");
+        try
+        {
+            var response = await httpClient.PutAsJsonAsync($"Update/{ID}", updatedStudent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var student = await response.Content.ReadFromJsonAsync<Student>();
+                student?.PrintCard();
+            }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                Console.WriteLine("Failed to update student: Invalid data.");
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                Console.WriteLine($"Student with ID {ID} not found.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
 
 
 }
