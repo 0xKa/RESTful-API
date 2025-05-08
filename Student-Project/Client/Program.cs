@@ -18,11 +18,11 @@ class Programm
 
         //Console.WriteLine("Average Grade: " + await GetAverageGrade());
 
-        Console.WriteLine("Enter Student ID:");
-        Student? student = await GetStudentByID(Convert.ToInt32(Console.ReadLine()));
-        student?.PrintCard();
+        //Console.WriteLine("Enter Student ID:");
+        //Student? student = await GetStudentByID(Convert.ToInt32(Console.ReadLine()));
+        //student?.PrintCard();
 
-
+        await AddStudent(new Student { Name = "Issa", BirthDate = new DateTime(2000, 3, 3), Grade = 44 });
 
     }
 
@@ -164,5 +164,31 @@ class Programm
         return null;
     }
 
+    static async Task AddStudent(Student newStudent)
+    {
+        Console.WriteLine($"\nAdding New Student...\n");
+
+        try
+        {
+            var response = await httpClient.PostAsJsonAsync("AddNewStudent", newStudent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var addedStudent = await response.Content.ReadFromJsonAsync<Student>();
+                Console.WriteLine("Student Added");
+                addedStudent?.PrintCard();
+            }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+                Console.WriteLine("Bad Request: Invalid student data");
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+                Console.WriteLine("404 Not Found");
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+
+    }
 
 }

@@ -78,6 +78,19 @@ namespace Student_API_Project.Controllers
         }
 
 
+        [HttpPost("AddNewStudent", Name = "Add Student")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Student> AddNewStudent(Student newStudent)
+        {
+            if (newStudent == null)
+                return BadRequest("Invalid student data.");
+
+            newStudent.ID = Database.Students.Count > 0 ? Database.Students.Max(s => s.ID) + 1 : 1; //sitmulate database auto increament
+            Database.Students.Add(newStudent);
+
+            return CreatedAtRoute("GetStudentByID", new { id = newStudent.ID }, newStudent); // Returns the created resource
+        }
 
 
     }
