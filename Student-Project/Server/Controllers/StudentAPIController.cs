@@ -93,5 +93,24 @@ namespace Student_API_Project.Controllers
         }
 
 
+        [HttpDelete("Delete/{ID}", Name = "DeleteStudent")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Student> DeleteStudent(int ID)
+        {
+            if (ID <= 0)
+                return BadRequest("error: ID must be greater than 0");
+
+            Student? student = Database.Students.FirstOrDefault(s => s.ID == ID);
+
+            if (student == null)
+                return NotFound($"error: No Student Found with ID = {ID}");
+
+            Database.Students.Remove(student);
+            return Ok($"Student with ID = {ID} Removed.");
+        }
+
+
     }
 }

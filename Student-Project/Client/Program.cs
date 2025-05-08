@@ -22,8 +22,10 @@ class Programm
         //Student? student = await GetStudentByID(Convert.ToInt32(Console.ReadLine()));
         //student?.PrintCard();
 
-        await AddStudent(new Student { Name = "Issa", BirthDate = new DateTime(2000, 3, 3), Grade = 44 });
+        //await AddStudent(new Student { Name = "Issa", BirthDate = new DateTime(2000, 3, 3), Grade = 44 });
 
+
+        await DeleteStudent(3);
     }
 
     static async Task GetAllStudents()
@@ -190,5 +192,30 @@ class Programm
         }
 
     }
+
+    static async Task DeleteStudent(int StudentID)
+    {
+        Console.WriteLine($"\nDeleting Student ID...\n");
+
+        try
+        {
+            var response = await httpClient.DeleteAsync($"Delete/{StudentID}");
+
+            if (response.IsSuccessStatusCode)
+                Console.WriteLine($"Student with ID {StudentID} Deleted.");
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+                Console.WriteLine("Bad Request: Invalid student data");
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+                Console.WriteLine("404 Not Found");
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+
+    }
+
+
 
 }
