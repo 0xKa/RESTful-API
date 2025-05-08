@@ -1,4 +1,5 @@
 ﻿using Student_API_Project.Model;
+using System.Net;
 using System.Net.Http.Json;
 
 class Programm
@@ -10,10 +11,19 @@ class Programm
         httpClient.BaseAddress = new Uri("http://localhost:5210/api/Students/");
 
         //await GetAllStudents();
+
         //await GetPassedStudents();
+
         //await GetFailedStudents();
 
-        Console.WriteLine("Average Grade: " + await GetAverageGrade());
+        //Console.WriteLine("Average Grade: " + await GetAverageGrade());
+
+        Console.WriteLine("Enter Student ID:");
+        Student? student = await GetStudentByID(Convert.ToInt32(Console.ReadLine()));
+        student?.PrintCard();
+
+
+
     }
 
     static async Task GetAllStudents()
@@ -113,6 +123,46 @@ class Programm
 
     }
 
+    static async Task<Student?> GetStudentByID(int ID)
+    {
+        Console.WriteLine($"\nFetching student with ID {ID}...\n");
+
+        try
+        {
+            //Student? student = await httpClient.GetFromJsonAsync<Student>(ID.ToString());
+
+            //if (student != null)
+            //    return student;
+
+            // OR
+
+            var response = await httpClient.GetAsync($"{ID}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var student = await response.Content.ReadFromJsonAsync<Student>();
+                if (student != null)
+                {
+                    return student;
+                }
+            }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                Console.WriteLine($"Bad Request: Not accepted ID {ID}");
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                Console.WriteLine($"Not Found: Student with ID {ID} not found.");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error Message: " + ex.Message);
+        }
+
+        return null;
+    }
 
 
 }

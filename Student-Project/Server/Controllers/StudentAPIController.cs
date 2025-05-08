@@ -60,6 +60,22 @@ namespace Student_API_Project.Controllers
         }
 
 
+        [HttpGet("{ID}", Name = "GetStudentByID")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Student> GetStudentByID(int ID)
+        {
+            if (ID <= 0)
+                return BadRequest("error: ID must be greater than 0");
+
+            Student? student = Database.Students.FirstOrDefault(s => s.ID == ID);
+
+            if (student == null)
+                return NotFound($"error: No Student Found with ID = {ID}");
+
+            return Ok(student);
+        }
 
 
 
