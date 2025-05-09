@@ -55,21 +55,69 @@ END;
 GO
 
 -- procedure 4
-CREATE PROCEDURE GetStudentCount
+CREATE PROCEDURE GetStudentByID
+    @ID INT
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT AVG(Grade) AS AverageGrade
+    SELECT ID, Name, BirthDate, Grade, Email, IsActive
     FROM Student
-    WHERE Grade IS NOT NULL;
+    WHERE ID = @ID;
 END;
 GO
+
 -- procedure 5
+CREATE PROCEDURE AddNewStudent
+    @Name NVARCHAR(100),
+    @BirthDate DATE = NULL,
+    @Grade DECIMAL(4,2) = NULL,
+    @Email NVARCHAR(100) = NULL,
+    @IsActive BIT = 1
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Student (Name, BirthDate, Grade, Email, IsActive)
+    VALUES (@Name, @BirthDate, @Grade, @Email, @IsActive);
+
+    SELECT SCOPE_IDENTITY() AS NewStudentID;
+END;
 GO
+
 -- procedure 6
+CREATE PROCEDURE UpdateStudent
+    @ID INT,
+    @Name NVARCHAR(100),
+    @BirthDate DATE = NULL,
+    @Grade DECIMAL(4,2) = NULL,
+    @Email NVARCHAR(100) = NULL,
+    @IsActive BIT = 1
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Student
+    SET Name = @Name,
+        BirthDate = @BirthDate,
+        Grade = @Grade,
+        Email = @Email,
+        IsActive = @IsActive
+    WHERE ID = @ID;
+END;
 GO
+
 -- procedure 7
+CREATE PROCEDURE DeleteStudent
+    @ID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM Student
+    WHERE ID = @ID;
+END;
 GO
+
 -- procedure 8
 GO

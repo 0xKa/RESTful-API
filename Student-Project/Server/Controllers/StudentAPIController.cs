@@ -25,11 +25,10 @@ namespace Student_API_Project.Controllers
         }
 
 
-
         [HttpGet("Passed", Name = "GetPassedStudents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<Student>> GetPassedStudents()
+        public ActionResult<IEnumerable<StudentDTO>> GetPassedStudents()
         {
             var passedStudents = BLL.Student.GetPassedStudents();
 
@@ -41,10 +40,11 @@ namespace Student_API_Project.Controllers
 
         }
 
+
         [HttpGet("Failed", Name = "GetFailedStudents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<Student>> GetFailedStudents()
+        public ActionResult<IEnumerable<StudentDTO>> GetFailedStudents()
         {
             var failedStudents = BLL.Student.GetFailedStudents();
 
@@ -53,6 +53,7 @@ namespace Student_API_Project.Controllers
 
             return Ok(failedStudents);
         }
+
 
         [HttpGet("Average", Name = "GetAverageGrade")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -64,6 +65,27 @@ namespace Student_API_Project.Controllers
 
             return Ok(BLL.Student.GetAverageGrade());
         }
+
+
+        [HttpGet("{ID}", Name = "GetStudentByID")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<StudentDTO> GetStudentByID(int ID)
+        {
+            if (ID < 1)
+                return BadRequest("error: ID must be greater than zero.");
+
+            Student? student = BLL.Student.Find(ID);
+
+            if (student == null)
+                return NotFound($"error: Student with ID = {ID} Not Found.");
+
+
+            return Ok(student.DTO); //returns the dto not the BL object
+        }
+
+
     }
 }
 
@@ -72,23 +94,7 @@ namespace Student_API_Project.Controllers
         
 
 
-        [HttpGet("{ID}", Name = "GetStudentByID")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Student> GetStudentByID(int ID)
-        {
-            if (ID <= 0)
-                return BadRequest("error: ID must be greater than 0");
-
-            Student? student = Database.Students.FirstOrDefault(s => s.ID == ID);
-
-            if (student == null)
-                return NotFound($"error: No Student Found with ID = {ID}");
-
-            return Ok(student);
-        }
-
+        
 
         [HttpPost("AddNewStudent", Name = "Add Student")]
         [ProducesResponseType(StatusCodes.Status201Created)]

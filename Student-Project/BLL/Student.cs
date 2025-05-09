@@ -9,7 +9,8 @@ namespace BLL
         public enum enMode { AddNew = 0, Update = 1 };
         enMode _Mode = enMode.AddNew;
 
-        public StudentDTO SDTO 
+        //objects can have more than one DTO to trasfer the needed properties only.
+        public StudentDTO DTO 
         {
             get {
                 return (new StudentDTO()
@@ -24,21 +25,21 @@ namespace BLL
             }
         }
 
-        public required int ID { get; set; }
-        public required string Name { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
         public DateTime? BirthDate { get; set; }
         public decimal? Grade { get; set; }
         public string? Email { get; set; }
         public bool? IsActive { get; set; }
 
-        public Student(StudentDTO SDTO, enMode mode = enMode.AddNew)
+        public Student(StudentDTO studentDto, enMode mode = enMode.AddNew)
         {
-            this.ID = SDTO.ID;
-            this.Name = SDTO.Name;
-            this.BirthDate = SDTO.BirthDate;
-            this.Grade = SDTO.Grade;
-            this.Email = SDTO.Email;
-            this.IsActive = SDTO.IsActive;
+            this.ID = studentDto.ID;
+            this.Name = studentDto.Name;
+            this.BirthDate = studentDto.BirthDate;
+            this.Grade = studentDto.Grade;
+            this.Email = studentDto.Email;
+            this.IsActive = studentDto.IsActive;
             
             _Mode = mode;
         }
@@ -57,6 +58,18 @@ namespace BLL
 
         public static double GetAverageGrade() => 
             StudentData.GetAverageGrade();
+
+        public static Student? Find(int ID)
+        {
+            if (ID < 1) return null;
+
+            StudentDTO? dto = StudentData.GetStudentByID(ID);
+
+            if (dto == null)
+                return null;
+            else
+                return new Student(dto, enMode.Update);
+        }
 
     }
 }

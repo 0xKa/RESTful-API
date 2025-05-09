@@ -27,9 +27,9 @@ namespace DAL.Data
                             ID = reader.GetInt32(reader.GetOrdinal("ID")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             BirthDate = reader.IsDBNull(reader.GetOrdinal("BirthDate")) ? null : reader.GetDateTime(reader.GetOrdinal("BirthDate")),
-                            Grade = reader.GetDecimal(reader.GetOrdinal("Grade")),
+                            Grade = reader.IsDBNull(reader.GetOrdinal("Grade")) ? null : reader.GetDecimal(reader.GetOrdinal("Grade")),
                             Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader.GetString(reader.GetOrdinal("Email")),
-                            IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"))
+                            IsActive = reader.IsDBNull(reader.GetOrdinal("IsActive")) ? null : reader.GetBoolean(reader.GetOrdinal("IsActive"))
                         });
                     }
                 }
@@ -68,9 +68,9 @@ namespace DAL.Data
                             ID = reader.GetInt32(reader.GetOrdinal("ID")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             BirthDate = reader.IsDBNull(reader.GetOrdinal("BirthDate")) ? null : reader.GetDateTime(reader.GetOrdinal("BirthDate")),
-                            Grade = reader.GetDecimal(reader.GetOrdinal("Grade")),
+                            Grade = reader.IsDBNull(reader.GetOrdinal("Grade")) ? null : reader.GetDecimal(reader.GetOrdinal("Grade")),
                             Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader.GetString(reader.GetOrdinal("Email")),
-                            IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"))
+                            IsActive = reader.IsDBNull(reader.GetOrdinal("IsActive")) ? null : reader.GetBoolean(reader.GetOrdinal("IsActive"))
                         });
                     }
                 }
@@ -94,6 +94,37 @@ namespace DAL.Data
             }
 
             return result;
+        }
+
+        public static StudentDTO? GetStudentByID(int id)
+        {
+            StudentDTO? student = null;
+
+            using (SqlConnection conn = new SqlConnection(_ConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetStudentByID", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID", id);
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        student = new StudentDTO
+                        {
+                            ID = reader.GetInt32(reader.GetOrdinal("ID")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            BirthDate = reader.IsDBNull(reader.GetOrdinal("BirthDate")) ? null : reader.GetDateTime(reader.GetOrdinal("BirthDate")),
+                            Grade = reader.IsDBNull(reader.GetOrdinal("Grade")) ? null : reader.GetDecimal(reader.GetOrdinal("Grade")),
+                            Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader.GetString(reader.GetOrdinal("Email")),
+                            IsActive = reader.IsDBNull(reader.GetOrdinal("IsActive")) ? null : reader.GetBoolean(reader.GetOrdinal("IsActive"))
+                        };
+                    }
+                }
+            }
+
+            return student;
         }
 
     }
