@@ -38,5 +38,63 @@ namespace DAL.Data
             return students;
         }
 
+        public static int GetStudentCount()
+        {
+            using (SqlConnection conn = new SqlConnection(_ConnectionString))
+            using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Student", conn))
+            {
+                conn.Open();
+                return (int)cmd.ExecuteScalar();
+            }
+        }
+
+        public static List<StudentDTO> GetPassedFailedStudents(bool isPassed)
+        {
+            var students = new List<StudentDTO>();
+
+            using (SqlConnection conn = new SqlConnection(_ConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetPassedFailedStudents", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IsPassed", isPassed);
+
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        students.Add(new StudentDTO
+                        {
+                            ID = reader.GetInt32(reader.GetOrdinal("ID")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            BirthDate = reader.IsDBNull(reader.GetOrdinal("BirthDate")) ? null : reader.GetDateTime(reader.GetOrdinal("BirthDate")),
+                            Grade = reader.GetDecimal(reader.GetOrdinal("Grade")),
+                            Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader.GetString(reader.GetOrdinal("Email")),
+                            IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"))
+                        });
+                    }
+                }
+            }
+
+            return students;
+        }
+
+        public static double GetAverageGrade()
+        {
+            double result;
+
+            using (SqlConnection conn = new SqlConnection(_ConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetAverageGrade", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                conn.Open();
+                result = Convert.ToDouble(cmd.ExecuteScalar());
+
+            }
+
+            return result;
+        }
+
     }
 }

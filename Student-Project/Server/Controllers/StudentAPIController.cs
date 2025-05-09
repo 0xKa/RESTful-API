@@ -24,21 +24,21 @@ namespace Student_API_Project.Controllers
 
         }
 
-    }
-}
 
-        /*
+
         [HttpGet("Passed", Name = "GetPassedStudents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<Student>> GetPassedStudents()
         {
-            var passedStudents = Database.Students.Where(s => s.Grade >= 50).ToList();
+            var passedStudents = BLL.Student.GetPassedStudents();
 
             if (passedStudents.Count == 0)
-                return NotFound("No Passed Students Found");
+                return NotFound("No Students Passed.");
 
             return Ok(passedStudents);
+
+
         }
 
         [HttpGet("Failed", Name = "GetFailedStudents")]
@@ -46,10 +46,10 @@ namespace Student_API_Project.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<Student>> GetFailedStudents()
         {
-            var failedStudents = Database.Students.Where(s => s.Grade < 50).ToList();
+            var failedStudents = BLL.Student.GetFailedStudents();
 
             if (failedStudents.Count == 0)
-                return NotFound("No Failed Students Found");
+                return NotFound("No Students Failed.");
 
             return Ok(failedStudents);
         }
@@ -59,11 +59,17 @@ namespace Student_API_Project.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<double> GetAverageGrade()
         {
-            if (Database.Students.Count == 0)
+            if (BLL.Student.GetStudentCount() == 0)
                 return NotFound("No Students Found");
 
-            return Ok(Database.Students.Average(s => s.Grade));
+            return Ok(BLL.Student.GetAverageGrade());
         }
+    }
+}
+
+        /*
+
+        
 
 
         [HttpGet("{ID}", Name = "GetStudentByID")]

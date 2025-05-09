@@ -44,10 +44,19 @@ namespace BLL
         }
 
 
-        public static List<StudentDTO> GetAllStudents()
-        {
-            return StudentData.GetAllStudents();
-        }
+        public static List<StudentDTO> GetAllStudents() =>
+            StudentData.GetAllStudents();
+
+        public static List<StudentDTO> GetPassedStudents() => 
+            StudentData.GetPassedFailedStudents(true);
+        public static List<StudentDTO> GetFailedStudents() => 
+            StudentData.GetPassedFailedStudents(false);
+
+        public static int GetStudentCount() => 
+            StudentData.GetStudentCount();
+
+        public static double GetAverageGrade() => 
+            StudentData.GetAverageGrade();
 
     }
 }
