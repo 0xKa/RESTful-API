@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Student_API_Project.Model;
-using Student_API_Project.DatabaseSimulation;
+using DAL.DTO;
+using BLL;
 
 namespace Student_API_Project.Controllers
 {
@@ -14,14 +14,20 @@ namespace Student_API_Project.Controllers
         [HttpGet("All", Name = "GetAllStudents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<Student>> GetAllStudents()
+        public ActionResult<IEnumerable<StudentDTO>> GetAllStudents()
         {
-            if (Database.Students.Count == 0)
+            List<StudentDTO> students = BLL.Student.GetAllStudents();
+            if (students == null || students.Count == 0)
                 return NotFound("No Students Found");
 
-            return Ok(Database.Students);
+            return Ok(students);
+
         }
 
+    }
+}
+
+        /*
         [HttpGet("Passed", Name = "GetPassedStudents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -137,5 +143,4 @@ namespace Student_API_Project.Controllers
 
 
 
-    }
-}
+        */

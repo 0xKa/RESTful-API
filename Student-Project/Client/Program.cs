@@ -9,8 +9,9 @@ class Programm
     public static async Task Main()
     {
         httpClient.BaseAddress = new Uri("http://localhost:5210/api/Students/");
-
-        //await GetAllStudents();
+        
+        //
+        await GetAllStudents();
 
         //await GetPassedStudents();
 
@@ -26,7 +27,7 @@ class Programm
 
         //await DeleteStudent(3);
 
-        await UpdateStudent(2, new Student { Name = "Saleh", BirthDate = new DateTime(2006, 6, 29), Grade = 84 });
+        //await UpdateStudent(2, new Student { Name = "Saleh", BirthDate = new DateTime(2006, 6, 29), Grade = 84 });
 
     }
 
