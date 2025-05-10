@@ -11,62 +11,6 @@ namespace Student_API_Project.Controllers
     public class StudentAPIController : ControllerBase
     {
 
-        [HttpGet("All", Name = "GetAllStudents")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<StudentDTO>> GetAllStudents()
-        {
-            List<StudentDTO> students = BLL.Student.GetAllStudents();
-            if (students == null || students.Count == 0)
-                return NotFound("No Students Found");
-
-            return Ok(students);
-
-        }
-
-
-        [HttpGet("Passed", Name = "GetPassedStudents")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<StudentDTO>> GetPassedStudents()
-        {
-            var passedStudents = BLL.Student.GetPassedStudents();
-
-            if (passedStudents.Count == 0)
-                return NotFound("No Students Passed.");
-
-            return Ok(passedStudents);
-
-
-        }
-
-
-        [HttpGet("Failed", Name = "GetFailedStudents")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<StudentDTO>> GetFailedStudents()
-        {
-            var failedStudents = BLL.Student.GetFailedStudents();
-
-            if (failedStudents.Count == 0)
-                return NotFound("No Students Failed.");
-
-            return Ok(failedStudents);
-        }
-
-
-        [HttpGet("Average", Name = "GetAverageGrade")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<double> GetAverageGrade()
-        {
-            if (BLL.Student.GetStudentCount() == 0)
-                return NotFound("No Students Found");
-
-            return Ok(BLL.Student.GetAverageGrade());
-        }
-
-
         [HttpGet("{ID}", Name = "GetStudentByID")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -147,6 +91,62 @@ namespace Student_API_Project.Controllers
                 return Ok($"Student with ID = {ID} Removed.");
             else
                 return NotFound($"error: Student with ID = {ID} Not Found.");
+        }
+
+
+        [HttpGet("All", Name = "GetAllStudents")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<StudentDTO>> GetAllStudents()
+        {
+            List<StudentDTO> students = BLL.Student.GetAllStudents();
+            if (students == null || students.Count == 0)
+                return NotFound("No Students Found");
+
+            return Ok(students);
+
+        }
+
+
+        [HttpGet("Passed", Name = "GetPassedStudents")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<StudentDTO>> GetPassedStudents()
+        {
+            var passedStudents = BLL.Student.GetPassedStudents();
+
+            if (passedStudents.Count == 0)
+                return NotFound("No Students Passed.");
+
+            return Ok(passedStudents);
+
+
+        }
+
+
+        [HttpGet("Failed", Name = "GetFailedStudents")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<StudentDTO>> GetFailedStudents()
+        {
+            var failedStudents = BLL.Student.GetFailedStudents();
+
+            if (failedStudents.Count == 0)
+                return NotFound("No Students Failed.");
+
+            return Ok(failedStudents);
+        }
+
+
+        [HttpGet("Average", Name = "GetAverageGrade")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<double> GetAverageGrade()
+        {
+            if (BLL.Student.GetStudentCount() == 0)
+                return NotFound("No Students Found");
+
+            return Ok(BLL.Student.GetAverageGrade());
         }
 
     }

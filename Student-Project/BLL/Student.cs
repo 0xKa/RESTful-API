@@ -33,20 +33,6 @@ namespace BLL
         }
 
 
-        public static List<StudentDTO> GetAllStudents() =>
-            StudentData.GetAllStudents();
-
-        public static List<StudentDTO> GetPassedStudents() => 
-            StudentData.GetPassedFailedStudents(true);
-        public static List<StudentDTO> GetFailedStudents() => 
-            StudentData.GetPassedFailedStudents(false);
-
-        public static int GetStudentCount() => 
-            StudentData.GetStudentCount();
-
-        public static double GetAverageGrade() => 
-            StudentData.GetAverageGrade();
-
         public static Student? Find(int ID)
         {
             if (ID < 1) return null;
@@ -91,7 +77,20 @@ namespace BLL
 
         public static bool IsExists(int id) =>
             StudentData.IsStudentExists(id);
-        
+
+        public static List<StudentDTO> GetAllStudents() =>
+    StudentData.GetAllStudents();
+
+        public static List<StudentDTO> GetPassedStudents() =>
+            StudentData.GetPassedFailedStudents(true);
+        public static List<StudentDTO> GetFailedStudents() =>
+            StudentData.GetPassedFailedStudents(false);
+
+        public static int GetStudentCount() =>
+            StudentData.GetStudentCount();
+
+        public static double GetAverageGrade() =>
+            StudentData.GetAverageGrade();
 
 
     }
