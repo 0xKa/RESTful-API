@@ -10,20 +10,8 @@ namespace BLL
         enMode _Mode = enMode.AddNew;
 
         //objects can have more than one DTO to trasfer the needed properties only.
-        public StudentDTO DTO 
-        {
-            get {
-                return (new StudentDTO()
-                {
-                    ID = this.ID,
-                    Name = this.Name,
-                    BirthDate = this.BirthDate,
-                    Grade = this.Grade,
-                    Email = this.Email,
-                    IsActive = this.IsActive
-                });
-            }
-        }
+        public StudentDTO DTO => new StudentDTO(ID, Name, BirthDate, Grade, Email, IsActive); //get-only property
+
 
         public int ID { get; set; }
         public string Name { get; set; }
@@ -70,6 +58,41 @@ namespace BLL
             else
                 return new Student(dto, enMode.Update);
         }
+
+        private bool _AddNewStudent()
+        {
+            this.ID = StudentData.AddNewStudent(this.DTO);
+            return this.ID != -1;
+        }
+
+        private bool _UpdateStudent()
+        {
+            return StudentData.UpdateStudent(this.DTO);
+        }
+
+        public bool Save()
+        {
+            switch (_Mode)
+            {
+                case enMode.AddNew:
+                    _Mode = enMode.Update;
+                    return _AddNewStudent();
+
+                case enMode.Update:
+                    return _UpdateStudent();
+
+                default:
+                    return false;
+            }
+        }
+
+        public static bool DeleteStudent(int ID) =>
+            StudentData.DeleteStudent(ID);
+
+        public static bool IsExists(int id) =>
+            StudentData.IsStudentExists(id);
+        
+
 
     }
 }

@@ -73,7 +73,8 @@ CREATE PROCEDURE AddNewStudent
     @BirthDate DATE = NULL,
     @Grade DECIMAL(4,2) = NULL,
     @Email NVARCHAR(100) = NULL,
-    @IsActive BIT = 1
+    @IsActive BIT = 1,
+	@NewStudentID INT OUTPUT
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -81,7 +82,7 @@ BEGIN
     INSERT INTO Student (Name, BirthDate, Grade, Email, IsActive)
     VALUES (@Name, @BirthDate, @Grade, @Email, @IsActive);
 
-    SELECT SCOPE_IDENTITY() AS NewStudentID;
+    SET @NewStudentID = SCOPE_IDENTITY();
 END;
 GO
 
@@ -95,7 +96,6 @@ CREATE PROCEDURE UpdateStudent
     @IsActive BIT = 1
 AS
 BEGIN
-    SET NOCOUNT ON;
 
     UPDATE Student
     SET Name = @Name,
@@ -112,7 +112,6 @@ CREATE PROCEDURE DeleteStudent
     @ID INT
 AS
 BEGIN
-    SET NOCOUNT ON;
 
     DELETE FROM Student
     WHERE ID = @ID;
@@ -120,4 +119,17 @@ END;
 GO
 
 -- procedure 8
+CREATE PROCEDURE IsStudentExists
+    @ID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM Student WHERE ID = @ID)
+        SELECT 1;
+    ELSE
+        SELECT 0;
+END;
+
+SELECT * FROM Student;
 GO
