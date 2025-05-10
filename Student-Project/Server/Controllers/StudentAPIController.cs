@@ -149,6 +149,75 @@ namespace Student_API_Project.Controllers
             return Ok(BLL.Student.GetAverageGrade());
         }
 
+
+
+        // File Upload to Server //
+
+        //file dir
+        public static string filesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "UploadedFiles");
+
+        [HttpPost("UploadFile", Name = "UploadFile")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UploadFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            
+            // Ensure the directory exists
+            Directory.CreateDirectory(filesDirectory);
+
+            // Generate unique filename
+            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            string filePath = Path.Combine(filesDirectory, fileName);
+
+            // Save the file
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return Ok(new
+            {
+                FileName = fileName,
+                OriginalName = file.FileName,
+                SizeInBytes = file.Length,
+                ContentType = file.ContentType,
+                AccessUrl = Url.RouteUrl("GetFile", new { FileName = fileName }, Request.Scheme)
+            });
+        }
+
+
+        [HttpGet("GetFile/{FileName}", Name = "GetFile")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetFile(string FileName)
+        {
+            string filePath = Path.Combine(filesDirectory, FileName);
+            if (!System.IO.File.Exists(filePath))
+                return NotFound("Image Not Found on the Server.");
+
+            var file = System.IO.File.OpenRead(filePath);
+            var mimeType = _GetMimeType(filePath);
+
+            return File(file, mimeType);
+        }
+        private string _GetMimeType(string filePath)
+        {
+            var extension = Path.GetExtension(filePath).ToLowerInvariant();
+            return extension switch
+            {
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".doc" or ".docx" => "document/doc",
+                ".xls" or ".xlsx" => "excelFile/xls",
+                ".png" => "image/png",
+                _ => "application/octet-stream" // standard fallback for unknown file types
+
+            };
+
+        }
+
     }
 }
 
